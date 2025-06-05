@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow">
+  <h2 class="text-xl font-bold mb-4">Register</h2>
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+
+    <!-- Username -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">{{ form.username.label }}</label>
+      {{ form.username(class_="w-full mt-1 p-2 border rounded") }}
+      {% if form.username.errors %}
+        <p class="text-sm text-red-500">{{ form.username.errors[0] }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Email -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">{{ form.email.label }}</label>
+      {{ form.email(class_="w-full mt-1 p-2 border rounded") }}
+      {% if form.email.errors %}
+        <p class="text-sm text-red-500">{{ form.email.errors[0] }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Password -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">{{ form.password.label }}</label>
+      {{ form.password(class_="w-full mt-1 p-2 border rounded") }}
+      {% if form.password.errors %}
+        <p class="text-sm text-red-500">{{ form.password.errors[0] }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">{{ form.confirm_password.label }}</label>
+      {{ form.confirm_password(class_="w-full mt-1 p-2 border rounded") }}
+      {% if form.confirm_password.errors %}
+        <p class="text-sm text-red-500">{{ form.confirm_password.errors[0] }}</p>
+      {% endif %}
+    </div>
+
+    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+      Register
+    </button>
+  </form>
+</div>
+{% endblock %}

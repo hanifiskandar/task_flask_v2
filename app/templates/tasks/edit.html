@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Edit Task{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+  <h2 class="text-xl font-bold mb-4">Edit Task</h2>
+
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+
+    <!-- Title -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">{{ form.title.label }}</label>
+      {{ form.title(class_="w-full mt-1 p-2 border rounded") }}
+      {% if form.title.errors %}
+        <p class="text-sm text-red-500">{{ form.title.errors[0] }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Description -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">{{ form.description.label }}</label>
+      {{ form.description(class_="w-full mt-1 p-2 border rounded", rows="4") }}
+      {% if form.description.errors %}
+        <p class="text-sm text-red-500">{{ form.description.errors[0] }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Start Date -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">{{ form.start_date.label }}</label>
+      {{ form.start_date(class_="w-full mt-1 p-2 border rounded") }}
+      {% if form.start_date.errors %}
+        <p class="text-sm text-red-500">{{ form.start_date.errors[0] }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Due Date -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">{{ form.due_date.label }}</label>
+      {{ form.due_date(class_="w-full mt-1 p-2 border rounded") }}
+      {% if form.due_date.errors %}
+        <p class="text-sm text-red-500">{{ form.due_date.errors[0] }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Priority -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">{{ form.priority.label }}</label>
+      {{ form.priority(class_="w-full mt-1 p-2 border rounded") }}
+      {% if form.priority.errors %}
+        <p class="text-sm text-red-500">{{ form.priority.errors[0] }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Status -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700">{{ form.status.label }}</label>
+      {{ form.status(class_="w-full mt-1 p-2 border rounded") }}
+      {% if form.status.errors %}
+        <p class="text-sm text-red-500">{{ form.status.errors[0] }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+      Update Task
+    </button>
+  </form>
+</div>
+{% endblock %}

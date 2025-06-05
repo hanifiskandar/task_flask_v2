@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}My Site{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="http://localhost:35729/livereload.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+
+  <header class="bg-indigo-600 text-white p-4 shadow">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">My Task Manager</h1>
+      <nav class="space-x-4 flex items-center">
+        <a href="{{ url_for('index.home') }}" class="hover:underline">Home</a>
+
+        {% if current_user.is_authenticated %}
+          <a href="{{ url_for('task.list_tasks') }}" class="hover:underline">Tasks</a>
+          <form action="{{ url_for('auth.logout') }}" method="POST" class="inline">
+            <button type="submit" class="ml-4 inline-flex items-center hover:underline" aria-label="Logout">
+              <i data-feather="log-out" class="w-4 h-4 mr-1"></i> Logout
+            </button>
+          </form>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="hover:underline">Login</a>
+          <a href="{{ url_for('auth.register') }}" class="hover:underline">Register</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto py-8 flex-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="bg-gray-200 text-center p-4 text-sm">
+    © 2025 My Site
+  </footer>
+
+  <div id="toast-container" class="fixed top-20 right-4 space-y-2 z-50"></div>
+
+
+  <script>
+    feather.replace(); // Render feather icons
+
+    // Flash messages as toasts
+    const flashMessages = JSON.parse('{{ get_flashed_messages(with_categories=true)|tojson|safe }}');
+    const toastContainer = document.getElementById("toast-container");
+
+    flashMessages.forEach(([category, message]) => {
+      const toast = document.createElement("div");
+      toast.className = `flex items-center text-white px-4 py-3 rounded shadow-md transition-opacity duration-500 ease-in-out ${
+        category === "danger" ? "bg-red-500" : "bg-green-500"
+      }`;
+      toast.innerHTML = `
+        <i data-feather="${category === 'danger' ? 'x-circle' : 'check-circle'}" class="mr-2"></i>
+        <span>${message}</span>
+      `;
+      toastContainer.appendChild(toast);
+      feather.replace();
+
+      // Auto remove after 3 seconds
+      setTimeout(() => {
+        toast.classList.add("opacity-0");
+        setTimeout(() => toast.remove(), 500);
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: "Helvetica", "Arial", sans-serif;
+      margin: 40px;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f6f8;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    td {
+      vertical-align: top;
+    }
+
+    .status-todo {
+      color: #e67e22;
+      font-weight: bold;
+    }
+
+    .status-doing {
+      color: #2980b9;
+      font-weight: bold;
+    }
+
+    .status-done {
+      color: #27ae60;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>My Tasks</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 20%;">Title</th>
+        <th style="width: 40%;">Description</th>
+        <th style="width: 10%;">Start Date</th>
+        <th style="width: 10%;">Due Date</th>
+        <th style="width: 10%;">Priority</th>
+        <th style="width: 10%;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      <tr>
+        <td>{{ task.title }}</td>
+        <td>{{ task.description or "-" }}</td>
+        <td>{{ task.start_date.strftime("%Y-%m-%d") if task.start_date else "-" }}</td>
+        <td>{{ task.due_date.strftime("%Y-%m-%d") if task.due_date else "-" }}</td>
+        <td>{{ task.priority or "-" }}</td>
+        <td>
+          {% if task.status == 1 %}
+            <span class="status-todo">To Do</span>
+          {% elif task.status == 2 %}
+            <span class="status-doing">Doing</span>
+          {% else %}
+            <span class="status-done">Done</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
