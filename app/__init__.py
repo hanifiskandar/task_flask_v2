@@ -30,8 +30,10 @@ def create_app():
     from app.routes.task_routes import task_bp
     from app.routes.index_routes import index_bp
     from app.routes.auth_routes import auth_bp
+    from app.routes.api.task_api import task_api
     app.register_blueprint(task_bp)
     app.register_blueprint(index_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(task_api)
 
     return app

@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Task
 from app.forms import TaskForm
 from app import db
-from weasyprint import HTML
+# from weasyprint import HTML
 from io import BytesIO
 
 task_bp = Blueprint('task', __name__, url_prefix="/tasks")
@@ -83,17 +83,17 @@ def delete_task(id):
     return redirect(url_for("task.list_tasks"))
 
 
-@task_bp.route('/pdf')
-@login_required
-def export_tasks_pdf():
-    tasks = Task.query.filter_by(user_id=current_user.id).order_by(Task.due_date).all()
-    html = render_template('tasks/pdf.html', tasks=tasks)
+# @task_bp.route('/pdf')
+# @login_required
+# def export_tasks_pdf():
+#     tasks = Task.query.filter_by(user_id=current_user.id).order_by(Task.due_date).all()
+#     html = render_template('tasks/pdf.html', tasks=tasks)
 
-    pdf_file = BytesIO()
-    HTML(string=html).write_pdf(pdf_file)
-    pdf_file.seek(0)
+#     pdf_file = BytesIO()
+#     HTML(string=html).write_pdf(pdf_file)
+#     pdf_file.seek(0)
 
-    response = make_response(pdf_file.read())
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'inline; filename=tasks.pdf'
-    return response
+#     response = make_response(pdf_file.read())
+#     response.headers['Content-Type'] = 'application/pdf'
+#     response.headers['Content-Disposition'] = 'inline; filename=tasks.pdf'
+#     return response
